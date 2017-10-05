@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>PacMan</title>	
+	<style>
+		/* All of our CSS code goes here... */
+		* { 
+			outline: 1px dotted purple; 
+		}
+    div{
+      margin: -2px;
+      vertical-align: top;
+    }
+    .pacman {
+      width: 50px;
+      height: 50px;
+      background-image: url("pacman.png");
+      display: inline-block;
+
+    }
+    .wall {
+      width: 50px;
+      height: 50px;
+      background-image: url("wall.png");
+      display: inline-block;
+    }
+    .coin {
+      width: 50px;
+      height: 50px;
+      background-image: url("coin.png");
+      display: inline-block;
+    }
+    .ground {
+      width: 50px;
+      height: 50px;
+      background-image: url("bg.png");
+      display: inline-block;
+    }
+		/* End of CSS */
+	</style>
+</head>
+<body>
+	<!-- All of our HTML code goes here... -->
+  <div id="world">
+  
+
+  </div>
+</body>
+<script>
+	// All of our JavaScript code goes here... 
+  //1=<div class="wall"></div>
+  //2=<div class="ground"></div>
+  //3=<div class="coin"></div>
+  //4=<div class="pacman"></div>
+	var map=[
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,3,3,3,3,2,1,1,2,1,2,2,2,1],
+    [1,2,2,2,3,2,1,3,2,1,2,2,2,1],
+    [1,2,2,2,3,2,3,3,2,1,2,2,2,1],
+    [1,2,2,2,4,2,3,2,2,1,2,2,1,1],
+    [1,2,1,1,3,2,3,2,2,3,3,3,2,1],
+    [1,2,2,1,3,3,3,3,2,3,2,3,1,1],
+    [1,2,2,1,1,2,2,3,3,3,2,2,2,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+  ];
+  var pacman={
+    x: 4,
+    y: 4,
+  };
+  var score=0;
+    function drawWorld(){
+      document.getElementById("world").innerHTML="";
+      for (var i=0;i<map.length;i++){
+        for (var j=0;j<map[i].length;j++){
+          console.log(map[i][j]);
+          if (map[i][j]===1){
+            document.getElementById("world").innerHTML+="<div class='wall'></div>"
+          }
+          else if (map[i][j]===2){
+            document.getElementById("world").innerHTML+="<div class='ground'></div>"
+          }
+          else if (map[i][j]===3){
+            document.getElementById("world").innerHTML+="<div class='coin'></div>"
+          }
+          else if (map[i][j]===4){
+            document.getElementById("world").innerHTML+="<div class='pacman'></div>"
+          }
+        }
+          document.getElementById("world").innerHTML+="<br>"        
+      }
+    }
+    document.onkeydown=function(e){
+      console.log(e.keyCode);
+      if (e.keyCode===37){
+        //left
+      if (map[pacman.y][pacman.x-1]!==1){ 
+        if (map[pacman.y][pacman.x-1]==3){
+          score++;
+          console.log("SCORE "+score);
+        }
+        map[pacman.y][pacman.x]=2;        
+        pacman.x-=1;
+        map[pacman.y][pacman.x]=4;
+        
+      }
+      }
+      else if (e.keyCode===38){
+        //up
+      if (map[pacman.y-1][pacman.x]!==1){
+        map[pacman.y][pacman.x]=2;        
+        pacman.y-=1;
+        map[pacman.y][pacman.x]=4;
+        
+      }
+      }
+      else if (e.keyCode===39){
+        //right
+      if (map[pacman.y][pacman.x+1]!==1){  
+        map[pacman.y][pacman.x]=2;        
+        pacman.x+=1;
+        map[pacman.y][pacman.x]=4;
+        
+      }
+      }
+      else if (e.keyCode===40){
+        //down
+      if (map[pacman.y+1][pacman.x]!==1){
+        map[pacman.y][pacman.x]=2;        
+        pacman.y+=1;
+        map[pacman.y][pacman.x]=4;
+      }
+      }
+      drawWorld();
+    };
+    drawWorld();
+
+	// End of JavaScript
+</script>
+</html>
