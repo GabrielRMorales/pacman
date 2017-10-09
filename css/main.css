@@ -6,6 +6,7 @@
       width: 510px;
       margin:0;
       outline: none;
+      background-color: yellow;
     }
     div{
       margin: -2px;
@@ -14,10 +15,11 @@
     #scoreboard{
       outline: 1px solid black;
       width: 25%;
-      margin: 10px auto;
+      margin: 10px 0 10px 90%;
       text-align: center;
     }
     #world {
+      margin-left: 40%;
       min-width: 880px;
       min-height:506px;
     }
