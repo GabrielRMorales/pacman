@@ -12,7 +12,7 @@
       margin: -2px;
       vertical-align: top;
     }
-    #scoreboard{
+    #scoreboard,#start,#restart{
       outline: 1px solid black;
       width: 25%;
       margin: 10px 0 10px 90%;

@@ -7,7 +7,7 @@ $(document).ready(function(){
 
   var map=[
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,2,2,1,2,2,1,2,2,2,2,2,1,2,2,1,2,2,1],
+    [1,2,2,1,2,2,1,2,2,5,2,2,1,2,2,1,2,2,1],
     [1,2,1,1,2,1,1,2,1,2,1,2,1,1,2,1,1,2,1],
     [1,2,2,2,2,1,2,2,2,5,2,2,2,1,2,2,2,2,1],
     [1,1,1,2,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1],
@@ -22,9 +22,13 @@ $(document).ready(function(){
     x: 9,
     y: 9,
   },
-  ghost={
+  ghost_one={
     x:9,
     y:3
+  },
+  ghost_two={
+    x:9, 
+    y:1
   },
   score=0,
   gameover=false;
@@ -71,35 +75,40 @@ $(document).ready(function(){
         var min = Math.ceil(0),max = Math.floor(1);
         return Math.floor(Math.random() * (max - min + 1)) + min;
       } 
-    function game_over_check(){
-      if(ghost.x==pacman.x && ghost.y==pacman.y){
-            $("#scoreboard").text("GAME OVER");
-            gameover=true;
-          }
-    }
-    function ghost_move(){
+    
+    function ghost_move(ghost){
       
       var arr=[1,-1],hori_or_vert=getRandomIntInclusive(), direction=arr[getRandomIntInclusive()];
 
       if (hori_or_vert==0){
-        if (map[ghost.y+direction][ghost.x]!==1){        
-          map[ghost.y][ghost.x]=3;
+        let destination=map[ghost.y+direction][ghost.x];
+        if (destination!==1&&destination!==5){        
+          if (destination==2){map[ghost.y][ghost.x]=2;}
+          else if (destination==3){map[ghost.y][ghost.x]=3;}
           ghost.y+=direction;
-          game_over_check();
+          game_over_check(ghost);
           map[ghost.y][ghost.x]=5;
         }
       }
       else if (hori_or_vert==1) { 
-        if (map[ghost.y][ghost.x+direction]!==1){        
-          map[ghost.y][ghost.x]=3;
+        let destination=map[ghost.y][ghost.x+direction];
+        if (destination!==1&&destination!==5){        
+          if (destination==2){map[ghost.y][ghost.x]=2;}
+          else if (destination==3){map[ghost.y][ghost.x]=3;}
           ghost.x+=direction;
-          game_over_check();
+          game_over_check(ghost);
           map[ghost.y][ghost.x]=5;
         }
       }        
      
       }
 
+      function game_over_check(ghost){
+      if(ghost.x==pacman.x && ghost.y==pacman.y){
+            $("#scoreboard").text("GAME OVER");
+            gameover=true;
+          }
+    }
 
 document.onkeydown=function(e){ 
 
@@ -140,8 +149,17 @@ if (gameover==false){
     }
   }
 }
-
-    setInterval(ghost_move, 300);
+  drawWorld();
+  $("#start").click(function(){
+    setInterval(function(){
+      ghost_move(ghost_one);
+      ghost_move(ghost_two);
+    }, 300);
+    
     setInterval(drawWorld,300); 
-  
+    });
+  $("#restart").click(function(){
+    window.location.reload();
+  })
+
 });
