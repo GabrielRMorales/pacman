@@ -33,6 +33,7 @@ $(document).ready(function(){
   score=0,
   gameover=false;
 
+  drawWorld();
 
   function drawWorld(){
       document.getElementById("world").innerHTML="";
@@ -149,17 +150,24 @@ if (gameover==false){
     }
   }
 }
-  drawWorld();
+
   $("#start").click(function(){
+    var audio=new Audio("pacman_sound.mp3");
+
+    audio.play();
+
     setInterval(function(){
       ghost_move(ghost_one);
       ghost_move(ghost_two);
+
     }, 300);
     
     setInterval(drawWorld,300); 
-    });
+
+  });
+
   $("#restart").click(function(){
     window.location.reload();
-  })
+  });
 
 });
