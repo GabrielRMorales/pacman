@@ -67,7 +67,14 @@
           world.innerHTML+="<br>";        
       }
     }
+
+    //incomplete functions--goal is to get the pacman to move around and environment to react (ie if pacman moves to a coin, the coin should disappear--as in gets replaced by a ground or wall block)
+    //You don't need to make the ghosts move, but just make it so that if pacman "moves onto" a ghost block, he dies (you could simply console log "game over" if you want)
+    //feel free to make diff functions if you want to reorganize it-I was just trying to make it very modular
+
     const getSurroundings = (char)=>{
+      //to determine what should happen in each direction pacman could potentially move (4) ex: If it's a coin, he's ok, if it's a ghost, he dies, or if it's a wall, nothing happens
+
         let up = map[char.v-1][char.h],
             down = map[char.v+1][char.h],
             left = map[char.v][char.h-1],
@@ -75,13 +82,13 @@
     }
     const setPacmanControls = ()=>{
         document.addEventListener("keydown", (e)=>{
-
+          //easy part: basically you move up, it should move the pacman icon up one block, you move him left, it should show him on the space to the left, etc
         })
 
 
     }
     const gameControls = () =>{
-
+      //could move other functions in this. Again, feel free to reorganize or make different functions as needed
     }
 
     
